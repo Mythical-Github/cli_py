@@ -5,7 +5,7 @@ setup(
     version='0.1',
     packages=find_packages(),
     install_requires=[
-        'git+https://github.com/Mythical-Github/python_logging.git'
+        'git+https://github.com/Mythical-Github/python_logging.git',
     ],
     include_package_data=True,
     package_data={
