@@ -11,7 +11,7 @@ default_json_location = f'{os.getcwd()}/cli.json'
 
 def get_resource_path(relative_path):
     """ Get the absolute path to a resource in the package. """
-    try:.
+    try:
         base_path = getattr(sys, '_MEIPASS', os.getcwd())
         return os.path.join(base_path, relative_path)
     except Exception as e:
