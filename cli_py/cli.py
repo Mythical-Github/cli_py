@@ -2,21 +2,28 @@ import os
 import sys
 import json
 import importlib
+from pathlib import Path
 
 from python_logging import log
 
 
 default_json_location = f'{os.getcwd()}/cli.json'
 
+def get_resource_path(relative_path):
+    """ Get the absolute path to a resource in the package. """
+    try:.
+        base_path = getattr(sys, '_MEIPASS', os.getcwd())
+        return os.path.join(base_path, relative_path)
+    except Exception as e:
+        log.log_message(f"Error obtaining resource path: {e}")
+        return relative_path
 
 def set_json_location(json_path: str):
     global default_json_location
     default_json_location = json_path
 
-
 def cli_logic():
-
-    cli_json = default_json_location
+    cli_json = get_resource_path(default_json_location)
 
     with open(cli_json, 'r') as file:
         data = json.load(file)
@@ -26,13 +33,11 @@ def cli_logic():
 
     args = sys.argv[1:]
 
-
     def display_help():
         log.log_message('Args:')
         for key in cli_info_dict.keys():
             log.log_message(f'Arg: {key}')
         sys.exit()
-
 
     if '-h' in args:
         if len(args) == 1:
@@ -47,9 +52,7 @@ def cli_logic():
                     log.log_message(f'Arg: {arg_name}    Help: {arg_help}')
             sys.exit()
 
-
     commands_module = importlib.import_module(module_name)
-
 
     for entry in cli_info_dict.keys():
         if entry in args:
