@@ -19,11 +19,14 @@ def get_resource_path(relative_path):
 
 def set_json_location(json_path: str):
     global default_json_location
-    base_path = getattr(sys, '_MEIPASS', os.path.dirname(__file__))
-    
-    json_filename = os.path.basename(json_path)
-    
-    default_json_location = os.path.join(base_path, json_filename)
+    if getattr(sys, 'frozen', False):
+        base_path = getattr(sys, '_MEIPASS', os.path.dirname(__file__))
+        
+        json_filename = os.path.basename(json_path)
+        
+        default_json_location = os.path.join(base_path, json_filename
+    else:
+        default_json_location = json_path
 
 
 def cli_logic():
