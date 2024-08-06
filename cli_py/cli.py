@@ -10,7 +10,6 @@ from python_logging import log
 default_json_location = f'{os.getcwd()}/cli.json'
 
 def get_resource_path(relative_path):
-    """ Get the absolute path to a resource in the package. """
     try:
         base_path = getattr(sys, '_MEIPASS', os.getcwd())
         return os.path.join(base_path, relative_path)
@@ -18,9 +17,15 @@ def get_resource_path(relative_path):
         log.log_message(f"Error obtaining resource path: {e}")
         return relative_path
 
+
 def set_json_location(json_path: str):
     global default_json_location
-    default_json_location = json_path
+    base_path = getattr(sys, '_MEIPASS', os.path.dirname(__file__))
+    
+    json_filename = os.path.basename(json_path)
+    
+    default_json_location = os.path.join(base_path, json_filename)
+
 
 def cli_logic():
     cli_json = get_resource_path(default_json_location)
