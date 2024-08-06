@@ -24,7 +24,7 @@ def set_json_location(json_path: str):
         
         json_filename = os.path.basename(json_path)
         
-        default_json_location = os.path.join(base_path, json_filename
+        default_json_location = os.path.join(base_path, json_filename)
     else:
         default_json_location = json_path
 
