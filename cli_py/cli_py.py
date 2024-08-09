@@ -3,7 +3,7 @@ import sys
 import json
 import importlib
 
-from python_logging import log
+from log_py import log_py as log
 
 
 default_json_location = f'{os.getcwd()}/cli.json'
